@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+#principal{
+  height: 1000px;
+  display:flex;
+  flex-direction:row;
+}
+
+.leaflet-container {
+    display: flex;
+    flex: 1 1 80%;
+    height: 100%;
+    width: 100%;
+    /* position: absolute; */
+}
+
+#country_info{
+  display: flex;
+  flex: 1 1 20%;
+  height: 100%;
+  width: 100%;
+
+}
