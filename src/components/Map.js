@@ -321,10 +321,10 @@ function Map2 (props){
           attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {/* { this.statecountries_layer.length > 0 ? */}
         <GeoJSON key={props.geojsonKey} data={props.countries_layer} style={getStyle} onEachFeature={onEachFeature} />
-
-      </Map>
+        {        console.log(props.countries_layer)}
+        {console.log(props.geojsonKey)
+        }      </Map>
 
     );
   }
@@ -350,14 +350,14 @@ function Map2 (props){
     else{
       return(
          <div id= 'principal'>
+           {console.log(props.countries_layer)}
+           { console.log(props.geojsonKey)
+           }
            {renderMap()}
          </div>
        )
 
     }
-
-
-
 
 
 }

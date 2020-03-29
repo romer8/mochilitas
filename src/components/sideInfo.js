@@ -16,10 +16,33 @@ import PlotCountry from './plots'
 // }
 
 function SideInfo(props) {
+  let h =props.country_data["altSpellings"];
+  if(h && h.length > 0){
+    console.log(h[1]);
+  }
     return (
+
       <div id= "country_info" className="box-field" className="newsbox">
-         <img src={props.country_data["flag"]} alt="Smiley face" width="50%" height="25%"/>
-         <h3>{props.country_data["altSpellings"]}</h3>
+
+        <h2>{props.country_data["name"]}</h2>
+
+        <em>
+        {(() => {
+           if (props && props.country_data["altSpellings"] && props.country_data["altSpellings"].length > 0) {
+             return props.country_data["altSpellings"][1]
+           }
+         })()}
+         </em>
+        <em>
+        {(() => {
+           if (props && props.country_data["altSpellings"] && props.country_data["altSpellings"].length > 0) {
+             return props.country_data["altSpellings"][2]
+           }
+         })()}
+         </em>
+         <br></br>
+         <img src={props.country_data["flag"]}/>
+
       </div>
 
     );
