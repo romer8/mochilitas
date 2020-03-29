@@ -14,17 +14,38 @@ function TableData (props) {
         </ul>
       )
     }
+    else{
+      return (
+        <ul>
+          <li key="noGroup">None</li>
+        </ul>
+      )
+
+
+    }
 
   }
   const currencies = (e) =>{
     if (props && props.currencies&& props.currencies.length > 0) {
       const currencies_data = props.currencies;
+      console.log(currencies_data);
       return (
         <ul>
           {currencies_data.map(currency => <li key={currency.name}>{currency.name} ({currency.symbol}) </li>)}
 
         </ul>
+      )
+    }
+  }
+  const timeZones = (e) =>{
+    if (props && props.timeZones&& props.timeZones.length > 0) {
+      const time_data = props.timeZones;
+      console.log(time_data);
+      return (
+        <ul>
+          {time_data.map(timeZone => <li key={timeZone}> ({timeZone}) </li>)}
 
+        </ul>
       )
     }
   }
@@ -65,13 +86,15 @@ function TableData (props) {
           </tr>
           <tr>
             <td>Currencies</td>
-            <td><ul>
+            <td>
               {currencies()}
-            </ul></td>
+            </td>
           </tr>
           <tr>
             <td>TimeZones</td>
-            <td></td>
+            <td>
+              {timeZones()}
+            </td>
           </tr>
           <tr>
             <td>Group Membership</td>

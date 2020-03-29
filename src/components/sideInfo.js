@@ -60,7 +60,7 @@ function SideInfo(props) {
           region= {props.country_data["region"]}
           regionalBlocs= {props.country_data["regionalBlocs"]}
           subregion= {props.country_data["subregion"]}
-          timeZones={props.country_data["timeZones"]}
+          timeZones={props.country_data["timezones"]}
           translations={props.country_data["translations"]}
 
           nativeName={props.country_data["nativeName"]}
