@@ -55,7 +55,7 @@ function plotCountry (props){
         x.push(0);
       }
     })
-    xy.sort();
+    // xy.sort();
 
     return xy;
   }
@@ -76,6 +76,9 @@ function plotCountry (props){
   }
   console.log(final(props.finDataRepaid));
   console.log(splitArray(props.finDataRepaid));
+  console.log(splitArray(props.finDataRepaying));
+  console.log(splitArray(props.finDataDisbursed));
+  console.log(splitArray(props.finDataTerminated));
   console.log(pieArray());
 
   return (
@@ -164,34 +167,34 @@ function plotCountry (props){
         } }
       >
       </Plot>
-      <Plot
+      {/* <Plot
         data={[
           {
-            x: splitArray(props.finDataRepaid)[0],
-            y: splitArray(props.finDataRepaid)[1],
-            type: 'scatter',
-            mode: 'markers',
-            marker: {
-                color: 'red',
-            }
+        x: splitArray(props.finDataRepaid)[0],
+        y: splitArray(props.finDataRepaid)[1],
+        type: 'scatter',
+        mode: 'markers',
+        marker: {
+        color: 'red',
+        }
           },
           {
-            x: splitArray(props.finDataRepaying)[0],
-            y: splitArray(props.finDataRepaying)[1],
-            type: 'scatter',
-            mode: 'markers',
-            marker: {
-                color: 'blue',
-            }
+        x: splitArray(props.finDataRepaying)[0],
+        y: splitArray(props.finDataRepaying)[1],
+        type: 'scatter',
+        mode: 'markers',
+        marker: {
+        color: 'blue',
+        }
           },
           {
-            x: splitArray(props.finDataDisbursed)[0],
-            y: splitArray(props.finDataDisbursed)[1],
-            type: 'scatter',
-            mode: 'markers',
-            marker: {
-                color: 'orange',
-            }
+        x: splitArray(props.finDataDisbursed)[0],
+        y: splitArray(props.finDataDisbursed)[1],
+        type: 'scatter',
+        mode: 'markers',
+        marker: {
+        color: 'orange',
+        }
           },
 
         ]}
@@ -202,8 +205,8 @@ function plotCountry (props){
           title: titleFinantial,
           grid: {rows: 1, columns: 1, pattern: 'independent'},
         } }
-      >
-      </Plot>
+        >
+      </Plot> */}
 
 
 
