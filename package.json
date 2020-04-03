@@ -10,6 +10,7 @@
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
     "leaflet": "^1.6.0",
+    "mathjs": "^6.6.2",
     "plotly.js": "^1.52.3",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0",

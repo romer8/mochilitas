@@ -21,7 +21,7 @@ code {
 
 .leaflet-container {
     display: flex;
-    flex: 1 1 80%;
+    flex: 1 1 60%;
     height: 100%;
     width: 100%;
     /* position: absolute; */
@@ -29,16 +29,28 @@ code {
 
 #country_info{
   display: flex;
-  flex: 1 1 20%;
+  flex: 1 1 40%;
   height: 100%;
   width: 100%;
   flex-direction: column;
-  align-items: center;
 }
-#country_info img{
-  width: 80%;
-  height: 20%;
+
+#initialMeta{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+}
+#initialMeta img{
+  width: 60%;
+  height: 60%;
   padding-top: 6%;
   padding-left: 2%;
   padding-right: 2%;
+}
+#tableID{
+  display: flex;
+  align-items: center;
+  padding-left: 6%;
+  flex-direction: column;
 }

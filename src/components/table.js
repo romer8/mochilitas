@@ -20,10 +20,7 @@ function TableData (props) {
           <li key="noGroup">None</li>
         </ul>
       )
-
-
     }
-
   }
   const currencies = (e) =>{
     if (props && props.currencies&& props.currencies.length > 0) {
@@ -51,61 +48,66 @@ function TableData (props) {
   }
 
     return (
-      <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            <th>Table heading</th>
-            <th>Table heading</th>
+        <Table striped bordered hover responsive ="sm" size="sm">
+          <thead>
+            <tr>
+              <th>Table heading</th>
+              <th>Table heading</th>
 
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>NativeName</td>
-            <td>{props.nativeName}</td>
-          </tr>
-          <tr>
-            <td>Region</td>
-            <td>{props.region}</td>
-          </tr>
-          <tr>
-            <td>SubRegion</td>
-            <td>{props.subregion}</td>
-          </tr>
-          <tr>
-            <td>Capital</td>
-            <td>{props.capital}</td>
-          </tr>
-          <tr>
-            <td>Demonym</td>
-            <td>{props.demonym}</td>
-          </tr>
-          <tr>
-            <td>Population</td>
-            <td>{props.population}</td>
-          </tr>
-          <tr>
-            <td>Currencies</td>
-            <td>
-              {currencies()}
-            </td>
-          </tr>
-          <tr>
-            <td>TimeZones</td>
-            <td>
-              {timeZones()}
-            </td>
-          </tr>
-          <tr>
-            <td>Group Membership</td>
-            <td>
-              {groupsRegions()}
-            </td>
-          </tr>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>NativeName</td>
+              <td>{props.nativeName}</td>
+            </tr>
+            <tr>
+              <td> ISO 3166 Code</td>
+              <td>{props.alpha2Code}</td>
+            </tr>
+            <tr>
+              <td>Region</td>
+              <td>{props.region}</td>
+            </tr>
+            <tr>
+              <td>SubRegion</td>
+              <td>{props.subregion}</td>
+            </tr>
+            <tr>
+              <td>Capital</td>
+              <td>{props.capital}</td>
+            </tr>
+            <tr>
+              <td>Demonym</td>
+              <td>{props.demonym}</td>
+            </tr>
+            <tr>
+              <td>Population</td>
+              <td>{props.population}</td>
+            </tr>
+            <tr>
+              <td>Currencies</td>
+              <td>
+                {currencies()}
+              </td>
+            </tr>
+            <tr>
+              <td>TimeZones</td>
+              <td>
+                {timeZones()}
+              </td>
+            </tr>
+            <tr>
+              <td>Group Membership</td>
+              <td>
+                {groupsRegions()}
+              </td>
+            </tr>
 
 
-        </tbody>
-      </Table>
+          </tbody>
+        </Table>
+
 
     );
 }
