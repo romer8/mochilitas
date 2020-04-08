@@ -8,15 +8,22 @@ import TableData from './table'
 
 function SideInfo(props) {
   const FINALTIAL_ENDPOINT = "https://finances.worldbank.org/resource/zucq-nrc3.json?country=";
+  const CURRENCY_API_TIME_FRAME = "https://api.currencylayer.com/timeframe?access_key=208c7901616724f01b18dae408480857";
+  const LIVE_CURRENCY_CONVERSION = "https://api.currencylayer.com/live?access_key=208c7901616724f01b18dae408480857";
   const TOKEN = "ZWopjWIh7YfvR6zsdndEu3OSd";
   const TERMINATED = "Terminated";
   const DISBURSED = "Fully Disbursed";
   const REPAID = "Fully Repaid";
   const REPAYING ="Repaying";
-  const [finDataTerminated, setFinDataTerminated] = useState([])
-  const [finDataRepaid, setFinDataRepaid] = useState([])
-  const [finDataDisbursed, setFinDataDisbursed] = useState([])
-  const [finDataRepaying, setFinDataRepaying] = useState([])
+  const [finDataTerminated, setFinDataTerminated] = useState([]);
+  const [finDataRepaid, setFinDataRepaid] = useState([]);
+  const [finDataDisbursed, setFinDataDisbursed] = useState([]);
+  const [finDataRepaying, setFinDataRepaying] = useState([]);
+  const [currencyTimeSerie, setCurrencyTimeSerie] = useState({});
+  const [liveCurrencyConversion, setLiveCurrencyConversion] = useState({
+    USD:0,
+    EUR:0
+  });
 
   useEffect(()=>{
     const fetchTerminated = (status, callback) =>{
@@ -43,6 +50,35 @@ function SideInfo(props) {
 
       }
     }
+    const fetchTerminatedCurrency = (callback) =>{
+      // if (props && props.codeCurrency) {
+        console.log(props.codeCurrency);
+        if(props.country_data['currencies']){
+          console.log(props.country_data['currencies'][0]["code"]);
+          let currencyCode = "USD";
+
+          currencyCode = props.country_data['currencies'][0]["code"];
+
+          console.log(currencyCode);
+          let endpoint = `${LIVE_CURRENCY_CONVERSION}&source=${currencyCode}&currencies=USD,EUR`
+          console.log(endpoint);
+          $.ajax({
+              url: endpoint,
+              type: "GET",
+          }).done(function(data) {
+            console.log(data);
+            let currencyConversion={};
+            currencyConversion['USD']=data['quotes'][`${props.country_data["currencies"][0]['code']}USD`];
+            currencyConversion['EUR']=data['quotes'][`${props.country_data["currencies"][0]['code']}EUR`];
+            callback(currencyConversion);
+          });
+
+        }
+
+
+      // }
+    }
+    fetchTerminatedCurrency(setLiveCurrencyConversion);
     fetchTerminated(TERMINATED,setFinDataTerminated);
     fetchTerminated(REPAID, setFinDataRepaid);
     fetchTerminated(DISBURSED, setFinDataDisbursed);
@@ -50,7 +86,7 @@ function SideInfo(props) {
     // console.log("WHATS");
     // fetchTerminated();
 
- },[props.country_data["name"]])
+ },[props.country_data["name"], props.codeCurrency])
 
     return (
 
@@ -97,8 +133,35 @@ function SideInfo(props) {
 
             nativeName={props.country_data["nativeName"]}
             latlng ={props.country_data["latlng"]}
-
           />
+          <h3>Actual Currency Conversion</h3>
+          <p class="valueCurrency">
+            1
+          </p>
+          <p >
+            <em> {(() => {
+              if (props && props.country_data["currencies"]) {
+                return props.country_data["currencies"][0]["name"]
+              }
+            })()}
+            </em>
+          </p>
+          <div id= "explainCurrency">
+            <div id="USDcon">
+
+              <p class="valueCurrency">{liveCurrencyConversion['USD']}</p>
+              <p><em> USD</em></p>
+
+
+            </div>
+            <div id="EURcon">
+
+              <p class="valueCurrency">  {liveCurrencyConversion['EUR']} </p>
+              <p><em> EUR</em></p>
+
+            </div>
+          </div>
+
           <PlotCountry
             country = {props.country_data["name"]}
             finDataTerminated = {finDataTerminated}
@@ -106,6 +169,7 @@ function SideInfo(props) {
             finDataRepaying = {finDataRepaying}
             finDataDisbursed = {finDataDisbursed}
           />
+
         </div>
 
       </div>

@@ -292,7 +292,8 @@ function Map2 (props){
       axios.get(url_request).then( response => {
        console.log(response.data);
 
-       setCountry_data(response.data)
+       setCountry_data(response.data);
+       console.log(response.data['currencies']);
      }).catch(function (error) {
        console.log(error);
      });
@@ -351,8 +352,7 @@ function Map2 (props){
       return(
          <div id= 'principal'>
            {console.log(props.countries_layer)}
-           { console.log(props.geojsonKey)
-           }
+           { console.log(props.geojsonKey)}
            {renderMap()}
          </div>
        )
