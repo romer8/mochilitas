@@ -8,6 +8,7 @@ function PlotCurrency (props){
   const endYear = new Date().getFullYear();
   const startYear = new Date().getFullYear() - 1;
   const titleCurrencyPlot = `Currency Time Series for ${startYear} - ${endYear}`;
+  console.log(props.times);
 
   return (
     <div>

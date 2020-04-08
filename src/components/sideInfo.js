@@ -30,7 +30,6 @@ function SideInfo(props) {
   useEffect(()=>{
     const fetchTerminated = (status, callback) =>{
       if (props && props.country_data) {
-        console.log("terminated data");
         let endpoint = FINALTIAL_ENDPOINT + props.country_data["name"] +"&loan_status="+status;
         console.log(endpoint);
         $.ajax({
@@ -54,7 +53,6 @@ function SideInfo(props) {
     }
     const fetchTerminatedCurrency = (callback) =>{
         if(props.country_data['currencies']){
-          console.log(props.country_data['currencies'][0]["code"]);
           let currencyCode = "USD";
 
           currencyCode = props.country_data['currencies'][0]["code"];
@@ -77,13 +75,12 @@ function SideInfo(props) {
     const fetchTerminatedHistoricalCurrency = (callback) =>{
         let baseDate= new Date();
         let endDate =baseDate.toISOString().slice(0,10);
-        let startDate = new Date(baseDate.getFullYear()-1, baseDate.getMonth(), baseDate.getDay()+6).toISOString().slice(0,10);
+        let startDate = new Date(baseDate.getFullYear()-1, baseDate.getMonth(), baseDate.getDate()+1).toISOString().slice(0,10);
         console.log(startDate);
 
         console.log(endDate);
 
         if(props.country_data['currencies']){
-          console.log(props.country_data['currencies'][0]["code"]);
           let currencyCode = "USD";
 
           currencyCode = props.country_data['currencies'][0]["code"];
@@ -97,7 +94,9 @@ function SideInfo(props) {
           }).done(function(data) {
             console.log(data);
             let dataQuotes = data['quotes'];
+
             let allDates = Object.keys(dataQuotes);
+            console.log(allDates);
             let preAllValues =Object.values(dataQuotes);
             let EURValues=[];
             let USDValues = [];
@@ -202,7 +201,7 @@ function SideInfo(props) {
           <PlotCurrency
             usd= {historicalCurrencyConversion['USD']}
             eur= {historicalCurrencyConversion['EUR']}
-            times= {historicalCurrencyConversion['times']}
+            times= {historicalCurrencyConversion['time']}
           />
           <PlotDebts
             country = {props.country_data["name"]}
