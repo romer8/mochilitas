@@ -13,6 +13,37 @@ code {
 }
 
 
+#wholeContainer{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+#front{
+  height: 100%;
+  width: 100%;
+  /* background-color: #DB7093; */
+  display:flex;
+  opacity: 100%;
+  background-color: #292929;
+  font-family: 'Libre Baskerville', serif;
+}
+#front h1 {
+  color: #bbc3c8;
+  font-size: 2em;
+  line-height: 2em;
+  font-weight: 700;
+}
+#frontContainer{
+  display: flex;
+  display: column;
+  align-items: center;
+}
+#frontContainer img{
+  height: max-content;
+  width: max-content;
+}
+
 #principal{
   height: 1000px;
   display:flex;

@@ -6,6 +6,7 @@ import axios from 'axios';
 import 'leaflet/dist/leaflet.css';
 import countries_data from './countries.geojson'
 import SideInfo from './sideInfo'
+import LogoMochilas from '../iconMochilita.png'
 
 const restcountries_url = 'https://restcountries.eu/rest/v2/alpha/'
 var isoCountries = {
@@ -333,6 +334,20 @@ function Map2 (props){
 
     );
   }
+  const renderFrontPage = () => {
+    return (
+        <div id="frontContainer">
+          <img src={LogoMochilas} alt="Mochilita App"></img>
+
+          <h1>
+            Mochilitas App
+          </h1>
+
+        </div>
+
+    )
+
+  }
 
   const renderSideInfo = ()=>{
     return(
@@ -342,23 +357,33 @@ function Map2 (props){
 
 
   if(showSideInfo){
-
          // this.props.incidents ?
       return(
-        <div id= 'principal'>
-          {renderMap()}
-          {renderSideInfo()}
+        <div id="wholeContainer">
+          <div id="front">
+            {renderFrontPage()}
+          </div>
+          <div id= 'principal'>
+            {renderMap()}
+            {renderSideInfo()}
+          </div>
         </div>
+
 
       )
     }
     else{
       return(
-         <div id= 'principal'>
-           {console.log(props.countries_layer)}
-           { console.log(props.geojsonKey)}
-           {renderMap()}
-         </div>
+          <div id="wholeContainer">
+            <div id="front">
+              {renderFrontPage()}
+            </div>
+            <div id= 'principal'>
+              {console.log(props.countries_layer)}
+              { console.log(props.geojsonKey)}
+              {renderMap()}
+            </div>
+          </div>
        )
 
     }
@@ -367,110 +392,3 @@ function Map2 (props){
 }
 
 export default Map2
-//
-// class Map2 extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       showSideInfo: false,
-//       country_data:{}
-//     };
-//     this.apiShow = this.apiShow.bind(this);
-//   }
-//
-//    getStyle(feature, layer) {
-//      return {
-//        color: '#006400',
-//        weight: 5,
-//        opacity: 0.65
-//      }
-//    }
-//
-//   apiShow(e){
-//     let layer = e.target;
-//     this.setState({
-//       showSideInfo:true
-//     })
-//     // console.log(layer.feature.properties.name);
-//     let countryFullName=layer.feature.properties.name;
-//
-//     if(isoCountries.hasOwnProperty(`${countryFullName}`)){
-//       let isoCodeCountry = isoCountries[`${countryFullName}`];
-//       let url_request = `${restcountries_url}${isoCodeCountry}`;
-//       console.log(url_request);
-//       axios.get(url_request).then( response => {
-//        console.log(response.data);
-//        this.setState({
-//          country_data: response.data
-//        })
-//      }).catch(function (error) {
-//        console.log(error);
-//      });
-//
-//     }
-//
-//   }
-//   onEachFeature(feature, layer) {
-//     // country_pop(feature,layer)
-//       if (feature.properties && feature.properties.name) {
-//       //     layer.bindPopup(feature.properties.name);
-//
-//       }
-//       layer.on({
-//         click: this.apiShow
-//       });
-//   }
-//
-//   renderMap(){
-//     return (
-//       <Map
-//         center={[this.props.lat, this.props.lng]}
-//         zoom={this.props.zoom}
-//       >
-//         <TileLayer
-//           attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-//           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-//         />
-//         {/* { this.statecountries_layer.length > 0 ? */}
-//         <GeoJSON key={this.props.geojsonKey} data={this.props.countries_layer} style={this.getStyle} onEachFeature={this.onEachFeature.bind(this)} />
-//
-//       </Map>
-//
-//     );
-//   }
-//
-//   renderSideInfo(){
-//     return(
-//       <SideInfo country_data={this.state.country_data}/>
-//     )
-//   }
-//
-//
-//
-//
-//    render() {
-//      if(this.state.showSideInfo === true){
-//        return (
-//
-//           // this.props.incidents ?
-//           <div id= 'principal'>
-//             {this.renderMap()}
-//             {this.renderSideInfo()}
-//           </div>
-//
-//        )
-//      }
-//      else{
-//        return(
-//          <div id= 'principal'>
-//            {this.renderMap()}
-//          </div>
-//
-//        )
-//
-//      }
-//
-//       }
-// }
-//
-// export default Map2
