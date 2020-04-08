@@ -51,8 +51,8 @@ function TableData (props) {
         <Table striped bordered hover responsive ="sm" size="sm">
           <thead>
             <tr>
-              <th>Table heading</th>
-              <th>Table heading</th>
+              <th>Info</th>
+              <th>Description</th>
 
             </tr>
           </thead>
