@@ -8,7 +8,7 @@ import TableData from './table'
 
 
 function SideInfo(props) {
-  const FINALTIAL_ENDPOINT = "https://finances.worldbank.org/resource/zucq-nrc3.json?country=";
+  const FINALTIAL_ENDPOINT = "https://finances.worldbank.org/resource/zucq-nrc3.json?country_code=";
   const CURRENCY_API_TIME_FRAME = "https://api.currencylayer.com/timeframe?access_key=208c7901616724f01b18dae408480857";
   const LIVE_CURRENCY_CONVERSION = "https://api.currencylayer.com/live?access_key=208c7901616724f01b18dae408480857";
   const TOKEN = "ZWopjWIh7YfvR6zsdndEu3OSd";
@@ -28,9 +28,19 @@ function SideInfo(props) {
   const [historicalCurrencyConversion, setHistoricalCurrencyConversion] = useState({});
 
   useEffect(()=>{
+    const fixCountriesNames =(name) =>{
+      // if(name =="Bolivia (Plurinational State of)"){
+      //
+      //
+      // }
+      // if(){
+      //
+      // }
+
+    }
     const fetchTerminated = (status, callback) =>{
       if (props && props.country_data) {
-        let endpoint = FINALTIAL_ENDPOINT + props.country_data["name"] +"&loan_status="+status;
+        let endpoint = FINALTIAL_ENDPOINT + props.country_data["alpha2Code"] +"&loan_status="+status;
         console.log(endpoint);
         $.ajax({
             url: endpoint,
@@ -125,12 +135,11 @@ function SideInfo(props) {
 
  },[props.country_data["name"], props.codeCurrency])
 
+  const renderGeneralInfo = ()=>{
     return (
-
-      <div id= "country_info" className="box-field" className="newsbox">
+      <div>
         <div id ="initialMeta">
           <h2>{props.country_data["name"]}</h2>
-
           <em>
             {(() => {
               if (props && props.country_data["altSpellings"] && props.country_data["altSpellings"].length > 0) {
@@ -185,17 +194,12 @@ function SideInfo(props) {
           </p>
           <div id= "explainCurrency">
             <div id="USDcon">
-
               <p className="valueCurrency">{liveCurrencyConversion['USD']}</p>
               <p><em> USD</em></p>
-
-
             </div>
             <div id="EURcon">
-
               <p className="valueCurrency">  {liveCurrencyConversion['EUR']} </p>
               <p><em> EUR</em></p>
-
             </div>
           </div>
           <PlotCurrency
@@ -203,6 +207,13 @@ function SideInfo(props) {
             eur= {historicalCurrencyConversion['EUR']}
             times= {historicalCurrencyConversion['time']}
           />
+        </div>
+      </div>
+        );
+    }
+    const renderNotGeneric = () =>{
+      if((finDataTerminated.length > 0 || finDataRepaid.length > 0) || (finDataDisbursed.length > 0 || finDataRepaying.length > 0) ){
+        return (
           <PlotDebts
             country = {props.country_data["name"]}
             finDataTerminated = {finDataTerminated}
@@ -210,9 +221,22 @@ function SideInfo(props) {
             finDataRepaying = {finDataRepaying}
             finDataDisbursed = {finDataDisbursed}
           />
-        </div>
+        );
+      }
+      else{
+        return(
+          <h4>No Data available for {props.country_data["name"]}. It can be due to that the World Bank does not have any
+          records of historical loans to this country in specific</h4>
+        );
+      }
+    }
+        return (
 
-      </div>
+        <div id= "country_info" className="box-field" className="newsbox">
+          {renderGeneralInfo()}
+          {renderNotGeneric()}
+
+        </div>
 
     );
 }
