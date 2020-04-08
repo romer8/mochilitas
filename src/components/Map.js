@@ -284,7 +284,7 @@ function Map2 (props){
     setShowSideInfo(true);
     let lat = layer["_bounds"].getCenter()['lat'];
     let lng = layer["_bounds"].getCenter()['lng'];
-    let newZoom = 5;
+    let newZoom = 6;
     console.log(layer);
 
     console.log(layer.feature.properties.name);
