@@ -21,7 +21,7 @@ code {
 
 .leaflet-container {
     display: flex;
-    flex: 1 1 60%;
+    flex: 1 1 70%;
     height: 100%;
     width: 100%;
     /* position: absolute; */
@@ -29,11 +29,13 @@ code {
 
 #country_info{
   display: flex;
-  flex: 1 1 40%;
+  flex: 1 1 30%;
   height: 100%;
   width: 100%;
   flex-direction: column;
   overflow-y: scroll;
+  background-image: url("b0.jpg");
+  background-size: 100% 100%;
 }
 
 #initialMeta{
@@ -45,9 +47,11 @@ code {
 #initialMeta img{
   width: 60%;
   height: 60%;
-  padding-top: 6%;
+  padding-top: 2%;
   padding-left: 2%;
   padding-right: 2%;
+  padding-bottom: 2%;
+  background-color: #D3D3D3;
 }
 #tableID{
   display: flex;

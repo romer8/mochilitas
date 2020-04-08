@@ -195,6 +195,7 @@ function SideInfo(props) {
           <br></br>
           <img src={props.country_data["flag"]}/>
         </div>
+        <br></br>
         <div id= "tableID">
           <TableData
             alpha2Code= {props.country_data["alpha2Code"]}
