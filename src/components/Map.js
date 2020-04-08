@@ -266,6 +266,9 @@ var isoCountries = {
 function Map2 (props){
   const [showSideInfo, setShowSideInfo] =  useState(false);
   const [country_data, setCountry_data] =  useState({});
+  const [lat, setLat]=useState(props.lat);
+  const[lng, setLng] = useState(props.lng);
+  const[zoom, setZoom] = useState(props.zoom);
 
 
   const getStyle = (feature, layer) =>{
@@ -279,6 +282,11 @@ function Map2 (props){
   const apiShow = (e) => {
     let layer = e.target;
     setShowSideInfo(true);
+    let lat = layer["_bounds"].getCenter()['lat'];
+    let lng = layer["_bounds"].getCenter()['lng'];
+    let newZoom = 5;
+    console.log(layer);
+
     console.log(layer.feature.properties.name);
     let countryFullName=layer.feature.properties.name;
 
@@ -290,6 +298,9 @@ function Map2 (props){
        console.log(response.data);
 
        setCountry_data(response.data);
+       setLat(lat);
+       setLng(lng);
+       setZoom(newZoom);
        console.log(response.data['currencies']);
      }).catch(function (error) {
        console.log(error);
@@ -302,7 +313,6 @@ function Map2 (props){
     // country_pop(feature,layer)
       if (feature.properties && feature.properties.name) {
       //     layer.bindPopup(feature.properties.name);
-
       }
       layer.on({
         click: apiShow
@@ -312,8 +322,8 @@ function Map2 (props){
   const renderMap = () =>{
     return (
       <Map
-        center={[props.lat, props.lng]}
-        zoom={props.zoom}
+        center={[lat, lng]}
+        zoom={zoom}
       >
         <TileLayer
           attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
