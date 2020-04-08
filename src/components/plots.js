@@ -147,7 +147,7 @@ function PlotDebts (props){
           },
 
         ]}
-        layout={ {width: 600, height: 600, title: titleFinantial} }
+        layout={ {width: 600, height: 600, title: `${titleFinantial}(Bar Graph)`} }
       >
       </Plot>
       <Plot
@@ -162,7 +162,7 @@ function PlotDebts (props){
         layout={ {
           width: 600,
           height: 600,
-          title: titleFinantial,
+          title: `${titleFinantial}(Scater Plot)`,
           grid: {rows: 1, columns: 1, pattern: 'independent'},
         } }
       >

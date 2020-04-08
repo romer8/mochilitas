@@ -180,7 +180,7 @@ function SideInfo(props) {
             nativeName={props.country_data["nativeName"]}
             latlng ={props.country_data["latlng"]}
           />
-          <h3>Actual Currency Conversion</h3>
+          <h3>Currency Conversion</h3>
           <p className="valueCurrency">
             1
           </p>
@@ -214,19 +214,29 @@ function SideInfo(props) {
     const renderNotGeneric = () =>{
       if((finDataTerminated.length > 0 || finDataRepaid.length > 0) || (finDataDisbursed.length > 0 || finDataRepaying.length > 0) ){
         return (
-          <PlotDebts
-            country = {props.country_data["name"]}
-            finDataTerminated = {finDataTerminated}
-            finDataRepaid = {finDataRepaid}
-            finDataRepaying = {finDataRepaying}
-            finDataDisbursed = {finDataDisbursed}
-          />
+          <div>
+            <h3>International Bank for Reconstruction and Development Loan Status</h3>
+            <PlotDebts
+              country = {props.country_data["name"]}
+              finDataTerminated = {finDataTerminated}
+              finDataRepaid = {finDataRepaid}
+              finDataRepaying = {finDataRepaying}
+              finDataDisbursed = {finDataDisbursed}
+            />
+
+          </div>
+
         );
       }
       else{
         return(
-          <h4>No Data available for {props.country_data["name"]}. It can be due to that the World Bank does not have any
-          records of historical loans to this country in specific</h4>
+          <div>
+            <h3>International Bank for Reconstruction and Development Loan Status</h3>
+            <h4>No Data available for {props.country_data["name"]}. It can be due to that the World Bank does not have any
+            records of historical loans to this country in specific</h4>
+
+          </div>
+
         );
       }
     }
