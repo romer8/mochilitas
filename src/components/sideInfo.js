@@ -4,6 +4,7 @@ import $ from "jquery";
 
 import PlotDebts from './plots'
 import PlotCurrency from './currencyPlot'
+import PlotSocial from './socialPlots'
 import TableData from './table'
 
 
@@ -11,6 +12,18 @@ function SideInfo(props) {
   const FINALTIAL_ENDPOINT = "https://finances.worldbank.org/resource/zucq-nrc3.json?country_code=";
   const CURRENCY_API_TIME_FRAME = "https://api.currencylayer.com/timeframe?access_key=208c7901616724f01b18dae408480857";
   const LIVE_CURRENCY_CONVERSION = "https://api.currencylayer.com/live?access_key=208c7901616724f01b18dae408480857";
+  const API_KEY_QUANDL = "?api_key=YixxmGjsvkiiNr1xF5hi";
+  const ROOT_QUANDL_API = "https://www.quandl.com/api/v3/datasets/WGEN/";
+  //GRAPH UNDERPLOYMENT TIME SERIES//
+  const INDICATOR_FEMALE_UNDERPLOYMENT = "_SL_EMP_UNDR_FE_ZS.json";
+  const INDICATOR_MALE_UNDERPLOYMENT = "_SL_EMP_UNDR_MA_ZS.json";
+  const INDICATOR_TOTAL_UNDERPLOYMENT = "_SL_EMP_UNDR_ZS.json";
+
+  //GRAPH MORATLITY RATE FOR 1000 BIRTHS //
+  const INDICATOR_FEMALE_INFANT_MORTALITY = "_SP_DYN_IMRT_FE_IN.json";
+  const INDICATOR_MALE_INFANT_MORTALITY = "_SP_DYN_IMRT_MA_IN.json";
+
+  // FINANTIAL API //
   const TOKEN = "ZWopjWIh7YfvR6zsdndEu3OSd";
   const TERMINATED = "Terminated";
   const DISBURSED = "Fully Disbursed";
@@ -26,18 +39,14 @@ function SideInfo(props) {
     EUR:0
   });
   const [historicalCurrencyConversion, setHistoricalCurrencyConversion] = useState({});
+  const [femaleMortality, setFemaleMortality] = useState({});
+  const [maleMortality, setMaleMortality] = useState({});
+  const [totalUnderemployment, setTotalUnderEmployment] = useState({});
+  const [femaleUnderemployment, setFemaleUnderEmployment] = useState({});
+  const [maleUnderemployment, setMaleUnderEmployment] = useState({});
 
   useEffect(()=>{
-    const fixCountriesNames =(name) =>{
-      // if(name =="Bolivia (Plurinational State of)"){
-      //
-      //
-      // }
-      // if(){
-      //
-      // }
 
-    }
     const fetchTerminated = (status, callback) =>{
       if (props && props.country_data) {
         let endpoint = FINALTIAL_ENDPOINT + props.country_data["alpha2Code"] +"&loan_status="+status;
@@ -87,9 +96,7 @@ function SideInfo(props) {
         let endDate =baseDate.toISOString().slice(0,10);
         let startDate = new Date(baseDate.getFullYear()-1, baseDate.getMonth(), baseDate.getDate()+1).toISOString().slice(0,10);
         console.log(startDate);
-
         console.log(endDate);
-
         if(props.country_data['currencies']){
           let currencyCode = "USD";
 
@@ -124,14 +131,45 @@ function SideInfo(props) {
 
         }
     }
+    const fetchSocialData = (indicator, callback) =>{
+      if (props && props.country_data) {
+        let endpoint = `${ROOT_QUANDL_API}${props.country_data["alpha3Code"]}${indicator}${API_KEY_QUANDL}`;
+        console.log(endpoint);
+        $.ajax({
+            url: endpoint,
+            type: "GET",
+
+        }).done(function(data) {
+          console.log(data);
+          let dataSocial = data["dataset"]["data"];
+          let finalSocialData={};
+          let allDates = [];
+          let allValues = [];
+          dataSocial.forEach(function(e){
+            allDates.push(e[0]);
+            allValues.push(e[1]);
+          })
+          finalSocialData['title']=data["dataset"]["name"];
+          finalSocialData['time']=allDates;
+          finalSocialData['values']= allValues;
+          callback(finalSocialData);
+        });
+
+      }
+
+    }
+    fetchSocialData(INDICATOR_FEMALE_INFANT_MORTALITY,setFemaleMortality);
+    fetchSocialData(INDICATOR_MALE_INFANT_MORTALITY,setMaleMortality);
+    fetchSocialData(INDICATOR_MALE_UNDERPLOYMENT,setMaleUnderEmployment);
+    fetchSocialData(INDICATOR_FEMALE_UNDERPLOYMENT,setFemaleUnderEmployment);
+    fetchSocialData(INDICATOR_TOTAL_UNDERPLOYMENT,setTotalUnderEmployment);
     fetchTerminatedCurrency(setLiveCurrencyConversion);
     fetchTerminatedHistoricalCurrency(setHistoricalCurrencyConversion);
     fetchTerminated(TERMINATED,setFinDataTerminated);
     fetchTerminated(REPAID, setFinDataRepaid);
     fetchTerminated(DISBURSED, setFinDataDisbursed);
     fetchTerminated(REPAYING, setFinDataRepaying);
-    // console.log("WHATS");
-    // fetchTerminated();
+
 
  },[props.country_data["name"], props.codeCurrency])
 
@@ -223,7 +261,6 @@ function SideInfo(props) {
               finDataRepaying = {finDataRepaying}
               finDataDisbursed = {finDataDisbursed}
             />
-
           </div>
 
         );
@@ -240,11 +277,39 @@ function SideInfo(props) {
         );
       }
     }
+    const renderSocial = () =>{
+      if((totalUnderemployment)||(femaleMortality && maleMortality)){
+        return (
+          <div>
+            <h3> World Bank Social Data </h3>
+            <PlotSocial
+              maleMortality = {maleMortality}
+              femaleMortality = {femaleMortality}
+              totalUnderemployment = {totalUnderemployment}
+              femaleUnderemployment = {femaleUnderemployment}
+              maleUnderemployment = {maleUnderemployment}
+            />
+          </div>
+        );
+      }
+      else{
+        return (
+          <div>
+            <h3> World Bank Social Data </h3>
+            <p> No Data available for {props.country_data["name"]}. It can be due to that the World Bank does not have any
+            historical records for underemployment or infant mortality</p>
+          </div>
+        );
+
+      }
+
+    }
 
   return (
     <div id= "country_info" className="box-field" className="newsbox">
       {renderGeneralInfo()}
       {renderNotGeneric()}
+      {renderSocial()}
     </div>
   );
 }

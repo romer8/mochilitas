@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import Plot from 'react-plotly.js';
-import { create, all } from 'mathjs'
 
 function PlotCurrency (props){
-  const config = { };
-  const math = create(all, config);
+
   const endYear = new Date().getFullYear();
   const startYear = new Date().getFullYear() - 1;
   const titleCurrencyPlot = `Currency Time Series for ${startYear} - ${endYear}`;
