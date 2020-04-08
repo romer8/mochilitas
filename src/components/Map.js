@@ -267,14 +267,6 @@ function Map2 (props){
   const [showSideInfo, setShowSideInfo] =  useState(false);
   const [country_data, setCountry_data] =  useState({});
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     showSideInfo: false,
-  //     country_data:{}
-  //   };
-  //   this.apiShow = this.apiShow.bind(this);
-  // }
 
   const getStyle = (feature, layer) =>{
      return {
