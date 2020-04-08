@@ -232,22 +232,20 @@ function SideInfo(props) {
         return(
           <div>
             <h3>International Bank for Reconstruction and Development Loan Status</h3>
-            <h4>No Data available for {props.country_data["name"]}. It can be due to that the World Bank does not have any
-            records of historical loans to this country in specific</h4>
+            <p>No Data available for {props.country_data["name"]}. It can be due to that the World Bank does not have any
+            records of historical loans to this country in specific</p>
 
           </div>
 
         );
       }
     }
-        return (
 
-        <div id= "country_info" className="box-field" className="newsbox">
-          {renderGeneralInfo()}
-          {renderNotGeneric()}
-
-        </div>
-
-    );
+  return (
+    <div id= "country_info" className="box-field" className="newsbox">
+      {renderGeneralInfo()}
+      {renderNotGeneric()}
+    </div>
+  );
 }
 export default SideInfo
