@@ -2,7 +2,8 @@ import React, { Component, useEffect, useState } from 'react'
 import axios from 'axios';
 import $ from "jquery";
 
-import PlotCountry from './plots'
+import PlotDebts from './plots'
+import PlotCurrency from './currencyPlot'
 import TableData from './table'
 
 
@@ -24,6 +25,7 @@ function SideInfo(props) {
     USD:0,
     EUR:0
   });
+  const [historicalCurrencyConversion, setHistoricalCurrencyConversion] = useState({});
 
   useEffect(()=>{
     const fetchTerminated = (status, callback) =>{
@@ -51,16 +53,13 @@ function SideInfo(props) {
       }
     }
     const fetchTerminatedCurrency = (callback) =>{
-      // if (props && props.codeCurrency) {
-        console.log(props.codeCurrency);
         if(props.country_data['currencies']){
           console.log(props.country_data['currencies'][0]["code"]);
           let currencyCode = "USD";
 
           currencyCode = props.country_data['currencies'][0]["code"];
 
-          console.log(currencyCode);
-          let endpoint = `${LIVE_CURRENCY_CONVERSION}&source=${currencyCode}&currencies=USD,EUR`
+          let endpoint = `${LIVE_CURRENCY_CONVERSION}&source=${currencyCode}&currencies=USD,EUR&`;
           console.log(endpoint);
           $.ajax({
               url: endpoint,
@@ -74,11 +73,50 @@ function SideInfo(props) {
           });
 
         }
+    }
+    const fetchTerminatedHistoricalCurrency = (callback) =>{
+        let baseDate= new Date();
+        let endDate =baseDate.toISOString().slice(0,10);
+        let startDate = new Date(baseDate.getFullYear()-1, baseDate.getMonth(), baseDate.getDay()+6).toISOString().slice(0,10);
+        console.log(startDate);
 
+        console.log(endDate);
 
-      // }
+        if(props.country_data['currencies']){
+          console.log(props.country_data['currencies'][0]["code"]);
+          let currencyCode = "USD";
+
+          currencyCode = props.country_data['currencies'][0]["code"];
+
+          console.log(currencyCode);
+          let endpoint = `${CURRENCY_API_TIME_FRAME}&source=${currencyCode}&currencies=USD,EUR&start_date=${startDate}&end_date=${endDate}`
+          console.log(endpoint);
+          $.ajax({
+              url: endpoint,
+              type: "GET",
+          }).done(function(data) {
+            console.log(data);
+            let dataQuotes = data['quotes'];
+            let allDates = Object.keys(dataQuotes);
+            let preAllValues =Object.values(dataQuotes);
+            let EURValues=[];
+            let USDValues = [];
+            preAllValues.forEach(function(e){
+              USDValues.push(e[`${props.country_data["currencies"][0]['code']}USD`]);
+              EURValues.push(e[`${props.country_data["currencies"][0]['code']}EUR`]);
+            })
+
+            let currencyHistoricakConversion={};
+            currencyHistoricakConversion['time']= allDates;
+            currencyHistoricakConversion['USD']= EURValues;
+            currencyHistoricakConversion['EUR']= USDValues;
+            callback(currencyHistoricakConversion);
+          });
+
+        }
     }
     fetchTerminatedCurrency(setLiveCurrencyConversion);
+    fetchTerminatedHistoricalCurrency(setHistoricalCurrencyConversion);
     fetchTerminated(TERMINATED,setFinDataTerminated);
     fetchTerminated(REPAID, setFinDataRepaid);
     fetchTerminated(DISBURSED, setFinDataDisbursed);
@@ -135,7 +173,7 @@ function SideInfo(props) {
             latlng ={props.country_data["latlng"]}
           />
           <h3>Actual Currency Conversion</h3>
-          <p class="valueCurrency">
+          <p className="valueCurrency">
             1
           </p>
           <p >
@@ -149,27 +187,30 @@ function SideInfo(props) {
           <div id= "explainCurrency">
             <div id="USDcon">
 
-              <p class="valueCurrency">{liveCurrencyConversion['USD']}</p>
+              <p className="valueCurrency">{liveCurrencyConversion['USD']}</p>
               <p><em> USD</em></p>
 
 
             </div>
             <div id="EURcon">
 
-              <p class="valueCurrency">  {liveCurrencyConversion['EUR']} </p>
+              <p className="valueCurrency">  {liveCurrencyConversion['EUR']} </p>
               <p><em> EUR</em></p>
 
             </div>
           </div>
-
-          <PlotCountry
+          <PlotCurrency
+            usd= {historicalCurrencyConversion['USD']}
+            eur= {historicalCurrencyConversion['EUR']}
+            times= {historicalCurrencyConversion['times']}
+          />
+          <PlotDebts
             country = {props.country_data["name"]}
             finDataTerminated = {finDataTerminated}
             finDataRepaid = {finDataRepaid}
             finDataRepaying = {finDataRepaying}
             finDataDisbursed = {finDataDisbursed}
           />
-
         </div>
 
       </div>

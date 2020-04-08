@@ -3,7 +3,7 @@ import Plot from 'react-plotly.js';
 import axios from 'axios';
 import { create, all } from 'mathjs'
 
-function plotCountry (props){
+function PlotDebts (props){
   const config = { };
   const math = create(all, config);
   const titleFinantial = 'Historical IBRD Statement of Loans';
@@ -214,4 +214,4 @@ function plotCountry (props){
 
   )
 }
-export default plotCountry
+export default PlotDebts
