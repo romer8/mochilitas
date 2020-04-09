@@ -293,7 +293,7 @@ function Map2 (props){
     let maps = document.querySelector(".leaflet-container");
     if(countryInfo !==null && maps !==null){
       countryInfo.style.display = "flex";
-      maps.style.cssText="display: flex; flex: 1 1 70%;height: 100%;width: 100%; position:relative;"
+      // maps.style.cssText="display: flex; flex: 1 1 70%;height: 100%;width: 100%; position:relative;"
 
     }
 
@@ -367,17 +367,18 @@ function Map2 (props){
             Mochilitas App
           </h1>
           <IconButton color="primary" aria-label="add to shopping cart" onClick={() => {
-            console.log("SAFASGAGSA");
             let maps = document.querySelector(".leaflet-container");
             let instructions = document.getElementById("infoHelp");
 
             if(instructions.style.display === "none"){
                 instructions.style.cssText="display: flex;flex: 1 1 20%;height: 100%;width: 100%;"
-                maps.style.cssText="display: flex;flex: 1 1 70%;height: 100%;width: 100%; position:relative"
+                // maps.style.cssText="display: flex;flex: 1 1 70%;height: 100%;width: 100%; position:relative"
 
             }
             else{
                 instructions.style.display = "none";
+                // maps.style.cssText="display: flex;flex: 1 1 50%;height: 100%;width: 100%; position:absolute"
+
 
             }
 
@@ -390,18 +391,17 @@ function Map2 (props){
             <IconButton color="primary" aria-label="add to shopping cart" onClick={() => {
               let countryInfo= document.getElementById("country_info");
               let maps = document.querySelector(".leaflet-container");
-              let instructions = document.getElementById("infoHelp");
               if(countryInfo!==null && maps !== null){
                 if(countryInfo.style.display === "none"){
                   countryInfo.style.display = "flex";
-                  instructions.style.display = "none";
-                  maps.style.cssText="display: flex;flex: 1 1 70%;height: 100%;width: 100%; position:relative"
+                  // maps.style.cssText="display: flex;flex: 1 1 70%;height: 100%;width: 100%; position:relative"
+
+                  // maps.style.position="relative"
 
                 }
                 else{
                   countryInfo.style.display = "none";
-                  maps.style.cssText="flex: 1 1 100%; height: 100%; width: 100%; position:absolute;"
-
+                  // maps.style.position = "absolute"
                 }
 
               }
