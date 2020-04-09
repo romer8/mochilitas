@@ -297,7 +297,7 @@ function Map2 (props){
     setShowSideInfo(true);
     let newlat = layer["_bounds"].getCenter()['lat'];
     let newlng = layer["_bounds"].getCenter()['lng'];
-    let newZoom = 6;
+    let newZoom = 5;
     console.log(layer);
 
     console.log(layer.feature.properties.name);
@@ -377,7 +377,6 @@ function Map2 (props){
                 }
                 else{
                   countryInfo.style.display = "none";
-                  maps.style.cssText="margin-left:30%;"
                   maps.style.cssText="flex: 1 1 100%; height: 100%; width: 100%; position:absolute; padding-left:30%;"
 
                 }
