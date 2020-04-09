@@ -1,9 +1,12 @@
 import React, { Component,useState, useEffect } from 'react'
 import { Map, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet'
 import L from "leaflet"
-// import $ from "jquery"
 import axios from 'axios';
+import IconButton from '@material-ui/core/Button';
+import ArrowBackIos from '@material-ui/icons/ArrowForwardIos';
+
 import 'leaflet/dist/leaflet.css';
+
 import countries_data from './countries.geojson'
 import SideInfo from './sideInfo'
 import LogoMochilas from '../iconMochilita.png'
@@ -273,9 +276,11 @@ function Map2 (props){
 
   const getStyle = (feature, layer) =>{
      return {
-       color: '#006400',
+       // color: '#E5FEFB',
+       color: '#536872',
        weight: 5,
-       opacity: 0.65
+       opacity: 1,
+       width: "100%"
      }
    }
 
@@ -337,7 +342,7 @@ function Map2 (props){
           attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <GeoJSON key={props.geojsonKey} data={props.countries_layer} style={getStyle} onEachFeature={onEachFeature} />
+        <GeoJSON key={props.geojsonKey} data={props.countries_layer} style={getStyle} onEachFeature={onEachFeature}/>
         {        console.log(props.countries_layer)}
         {console.log(props.geojsonKey)
         }      </Map>
@@ -351,7 +356,33 @@ function Map2 (props){
 
           <h1>
             Mochilitas App
+
           </h1>
+          <div id="bolud">
+
+            <IconButton color="primary" aria-label="add to shopping cart" onClick={() => {
+              let countryInfo= document.getElementById("country_info");
+              let maps = document.querySelector(".leaflet-container");
+              if(countryInfo!==null && maps !== null){
+                // if(props.showSideInfo === false){
+                if(countryInfo.style.display === "none"){
+                  countryInfo.style.display = "flex";
+                  maps.style.cssText="display: flex;flex: 1 1 70%;height: 100%;width: 100%; position:relative"
+
+                }
+                else{
+                  countryInfo.style.display = "none";
+                  maps.style.cssText="flex: 1 1 100%; height: 100%; width: 100%; position:absolute;"
+
+                }
+
+              }
+
+            }}>
+              <ArrowBackIos/>
+            </IconButton>
+
+          </div>
 
         </div>
 

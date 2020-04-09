@@ -43,6 +43,7 @@ code {
   height: max-content;
   width: max-content;
 }
+
 #headerTitle{
   display: flex;
   flex-direction: row;
@@ -54,6 +55,15 @@ code {
 #headerTitle h2{
   flex: 1 1 100%;
 }
+.MuiButtonBase-root{
+  position: absolute;
+	right: 0%;
+}
+#bolud{
+  position: absolute;
+	right: 0%;
+
+}
 #principal{
   height: 1000px;
   display:flex;
@@ -62,6 +72,8 @@ code {
 #tableAndThings{
   padding-left: 10%;
 }
+
+
 
 .leaflet-container {
     display: flex;
