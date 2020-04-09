@@ -10,6 +10,7 @@ import 'leaflet/dist/leaflet.css';
 import countries_data from './countries.geojson'
 import SideInfo from './sideInfo'
 import LogoMochilas from '../iconMochilita.png'
+import Instructions from './instructions'
 
 const restcountries_url = 'https://restcountries.eu/rest/v2/alpha/'
 var isoCountries = {
@@ -286,7 +287,10 @@ function Map2 (props){
 
   const apiShow = (e) => {
     let countryInfo= document.getElementById("country_info");
+    let instructions= document.getElementById("instructions");
+    console.log(instructions);
     let maps = document.querySelector(".leaflet-container");
+    instructions.style.display = "none";
     if(countryInfo !==null && maps !==null){
       countryInfo.style.display = "flex";
       maps.style.cssText="display: flex; flex: 1 1 70%;height: 100%;width: 100%; position:relative;"
@@ -368,10 +372,12 @@ function Map2 (props){
             <IconButton color="primary" aria-label="add to shopping cart" onClick={() => {
               let countryInfo= document.getElementById("country_info");
               let maps = document.querySelector(".leaflet-container");
+              let instructions = document.getElementById("instructions");
               if(countryInfo!==null && maps !== null){
                 // if(props.showSideInfo === false){
                 if(countryInfo.style.display === "none"){
                   countryInfo.style.display = "flex";
+                  instructions.style.display = "none";
                   maps.style.cssText="display: flex;flex: 1 1 70%;height: 100%;width: 100%; position:relative"
 
                 }
@@ -400,6 +406,11 @@ function Map2 (props){
       <SideInfo country_data={country_data} showSideInfo = {showSideInfo}/>
     )
   }
+  const renderInstructions = ()=>{
+    return(
+      <Instructions/>
+    );
+  }
 
 
   if(showSideInfo){
@@ -410,6 +421,7 @@ function Map2 (props){
             {renderFrontPage()}
           </div>
           <div id= 'principal'>
+            {renderInstructions()}
             {renderMap()}
             {renderSideInfo()}
           </div>
@@ -427,6 +439,8 @@ function Map2 (props){
             <div id= 'principal'>
               {console.log(props.countries_layer)}
               { console.log(props.geojsonKey)}
+              {renderInstructions()}
+
               {renderMap()}
             </div>
           </div>
