@@ -47,6 +47,8 @@ function SideInfo(props) {
   const [totalUnderemployment, setTotalUnderEmployment] = useState({});
   const [femaleUnderemployment, setFemaleUnderEmployment] = useState({});
   const [maleUnderemployment, setMaleUnderEmployment] = useState({});
+  const [showSideInfo, setShowSideInfo] =  useState(props.showSideInfo);
+
 
   useEffect(()=>{
 
@@ -182,7 +184,20 @@ function SideInfo(props) {
 
         <div id ="initialMeta">
           <div id ="headerTitle">
-            <IconButton color="primary" aria-label="add to shopping cart">
+            <IconButton color="primary" aria-label="add to shopping cart" onClick={() => {
+              let countryInfo= document.getElementById("country_info");
+              let maps = document.querySelector(".leaflet-container");
+              if(props.showSideInfo === false){
+                countryInfo.style.display = "flex";
+                maps.style.cssText="display: flex;flex: 1 1 70%;height: 100%;width: 100%; position:relative"
+                
+              }
+              else{
+                countryInfo.style.display = "none";
+                maps.style.cssText="display: flex;flex: 1 1 100%;height: 100%;width: 100%; position:absolute;"
+
+              }
+            }}>
               <ArrowForwardIosIcon/>
             </IconButton>
             <h2>{props.country_data["name"]}</h2>

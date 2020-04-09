@@ -1,4 +1,4 @@
-import React, { Component,useState } from 'react'
+import React, { Component,useState, useEffect } from 'react'
 import { Map, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet'
 import L from "leaflet"
 // import $ from "jquery"
@@ -280,6 +280,14 @@ function Map2 (props){
    }
 
   const apiShow = (e) => {
+    let countryInfo= document.getElementById("country_info");
+    let maps = document.querySelector(".leaflet-container");
+    if(countryInfo !==null && maps !==null){
+      countryInfo.style.display = "flex";
+      maps.style.cssText="display: flex; flex: 1 1 70%;height: 100%;width: 100%; position:relative;"
+
+    }
+
     let layer = e.target;
     setShowSideInfo(true);
     let lat = layer["_bounds"].getCenter()['lat'];
@@ -353,7 +361,7 @@ function Map2 (props){
 
   const renderSideInfo = ()=>{
     return(
-      <SideInfo country_data={country_data}/>
+      <SideInfo country_data={country_data} showSideInfo = {showSideInfo}/>
     )
   }
 
