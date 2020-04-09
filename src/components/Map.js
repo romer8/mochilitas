@@ -290,10 +290,7 @@ function Map2 (props){
 
   const apiShow = (e) => {
     let countryInfo= document.getElementById("country_info");
-    let instructions= document.getElementById("infoHelp");
-    console.log(instructions);
     let maps = document.querySelector(".leaflet-container");
-    instructions.style.display = "none";
     if(countryInfo !==null && maps !==null){
       countryInfo.style.display = "flex";
       maps.style.cssText="display: flex; flex: 1 1 70%;height: 100%;width: 100%; position:relative;"
@@ -384,8 +381,6 @@ function Map2 (props){
 
             }
 
-            // }
-
           }}>
             <HelpOutlineIcon/>
           </IconButton>
@@ -405,7 +400,7 @@ function Map2 (props){
                 }
                 else{
                   countryInfo.style.display = "none";
-                  maps.style.cssText="flex: 1 1 100%; height: 100%; width: 100%; position:absolute; padding-left:30%;"
+                  maps.style.cssText="flex: 1 1 100%; height: 100%; width: 100%; position:absolute;"
 
                 }
 
