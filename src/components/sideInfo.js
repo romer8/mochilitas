@@ -1,7 +1,9 @@
 import React, { Component, useEffect, useState } from 'react'
 import axios from 'axios';
 import $ from "jquery";
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/Button';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+
 
 import PlotDebts from './plots'
 import PlotCurrency from './currencyPlot'
@@ -180,9 +182,9 @@ function SideInfo(props) {
 
         <div id ="initialMeta">
           <div id ="headerTitle">
-            <Button variant="contained" color="secondary">
-              Hide
-            </Button>
+            <IconButton color="primary" aria-label="add to shopping cart">
+              <ArrowForwardIosIcon/>
+            </IconButton>
             <h2>{props.country_data["name"]}</h2>
 
           </div>
