@@ -4,6 +4,9 @@ import L from "leaflet"
 import axios from 'axios';
 import IconButton from '@material-ui/core/Button';
 import ArrowBackIos from '@material-ui/icons/ArrowForwardIos';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+
+
 
 import 'leaflet/dist/leaflet.css';
 
@@ -287,7 +290,7 @@ function Map2 (props){
 
   const apiShow = (e) => {
     let countryInfo= document.getElementById("country_info");
-    let instructions= document.getElementById("instructions");
+    let instructions= document.getElementById("infoHelp");
     console.log(instructions);
     let maps = document.querySelector(".leaflet-container");
     instructions.style.display = "none";
@@ -365,16 +368,35 @@ function Map2 (props){
 
           <h1>
             Mochilitas App
-
           </h1>
+          <IconButton color="primary" aria-label="add to shopping cart" onClick={() => {
+            console.log("SAFASGAGSA");
+            let maps = document.querySelector(".leaflet-container");
+            let instructions = document.getElementById("infoHelp");
+
+            if(instructions.style.display === "none"){
+                instructions.style.cssText="display: flex;flex: 1 1 20%;height: 100%;width: 100%;"
+                maps.style.cssText="display: flex;flex: 1 1 70%;height: 100%;width: 100%; position:relative"
+
+            }
+            else{
+                instructions.style.display = "none";
+
+            }
+
+            // }
+
+          }}>
+            <HelpOutlineIcon/>
+          </IconButton>
+
           <div id="bolud">
 
             <IconButton color="primary" aria-label="add to shopping cart" onClick={() => {
               let countryInfo= document.getElementById("country_info");
               let maps = document.querySelector(".leaflet-container");
-              let instructions = document.getElementById("instructions");
+              let instructions = document.getElementById("infoHelp");
               if(countryInfo!==null && maps !== null){
-                // if(props.showSideInfo === false){
                 if(countryInfo.style.display === "none"){
                   countryInfo.style.display = "flex";
                   instructions.style.display = "none";

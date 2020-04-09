@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 function Instructions (props){
 
   return (
-    <div id="instructions">
+    <div id="infoHelp">
       <h2>Instructions</h2>
       <p>The Mochilitas App is an app that tries to collect Api from the WorldBank open data and other currency data.
       The main focus of the app is to try to show general information, finantial, and social data about the selected country.
