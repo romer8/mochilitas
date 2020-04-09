@@ -295,8 +295,8 @@ function Map2 (props){
 
     let layer = e.target;
     setShowSideInfo(true);
-    let lat = layer["_bounds"].getCenter()['lat'];
-    let lng = layer["_bounds"].getCenter()['lng'];
+    let newlat = layer["_bounds"].getCenter()['lat'];
+    let newlng = layer["_bounds"].getCenter()['lng'];
     let newZoom = 6;
     console.log(layer);
 
@@ -311,9 +311,14 @@ function Map2 (props){
        console.log(response.data);
 
        setCountry_data(response.data);
-       setLat(lat);
-       setLng(lng);
        setZoom(newZoom);
+
+       setLat(newlat);
+       setLng(newlng);
+
+       // if(newlat === lat && newlng === lng){
+       //   setZoom(newZoom);
+       // }
        console.log(response.data['currencies']);
      }).catch(function (error) {
        console.log(error);
@@ -372,7 +377,8 @@ function Map2 (props){
                 }
                 else{
                   countryInfo.style.display = "none";
-                  maps.style.cssText="flex: 1 1 100%; height: 100%; width: 100%; position:absolute;"
+                  maps.style.cssText="margin-left:30%;"
+                  maps.style.cssText="flex: 1 1 100%; height: 100%; width: 100%; position:absolute; padding-left:30%;"
 
                 }
 
